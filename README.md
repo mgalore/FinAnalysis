@@ -1,46 +1,66 @@
-# FinAnalysis
+# NKAccountant - Automated Accounting System
 
-A financial analysis project leveraging unstructured.io for processing financial documents and extracting valuable insights.
+An AI-powered system that processes raw, unstructured financial data into structured accounting records.
 
-## Overview
+## 1. Overview
 
-FinAnalysis is a tool designed to help financial analysts and researchers extract, process, and analyze information from various financial documents such as:
+NKAccountant is designed to automate the accounting workflow by extracting, processing, classifying, and analyzing financial data from various sources. The system leverages AI technologies to ensure accuracy, compliance, and efficiency while providing insights into financial trends and generating comprehensive financial reports.
 
-- Annual reports (10-K)
-- Quarterly reports (10-Q)
-- Earnings call transcripts
-- Financial news articles
-- SEC filings
-- Bank statements
-- Financial PDFs
+## 2. Objectives
 
-The project uses [unstructured.io](https://unstructured.io), a powerful library for extracting and preprocessing unstructured data from documents for use with Large Language Models (LLMs).
+- Extract financial data from documents (invoices, receipts, bank statements, etc.)
+- Convert unstructured data into structured formats
+- Apply accounting rules (double-entry bookkeeping, classification, reconciliation)
+- Detect anomalies for auditing and fraud prevention
+- Store structured financial data in a database
+- Provide a user-friendly dashboard for review and reporting
+- Export data in CSV and PDF formats
 
-## Features
+## 3. System Architecture
 
-- Document ingestion and parsing from multiple sources
-- Extraction of key financial metrics and data points
-- Natural language processing of financial text
-- Data visualization and reporting
-- Custom processing pipelines for financial document analysis
+### Step 1: Data Ingestion
+- **Unstructured.io**: Primary tool for extracting text from various document formats
+- Alternatives: AWS Textract, Google Document AI, Tesseract OCR
 
-## Installation
+### Step 2: NLP Processing & Accounting Rule Application
+- **GPT-4 + LangChain**: LLM to understand and process text
+- Alternative: Spacy + Custom Python Rules
+
+### Step 3: Accounting API Integration
+- **QuickBooks API**: For integration with standard accounting systems
+- Alternatives: Xero API, Ledger.js
+
+### Step 4: Anomaly Detection & Auditing
+- **Scikit-Learn + Custom Models**: For machine learning-based anomaly detection
+- Alternatives: MindBridge AI, Pandas + Rule-Based Detection
+
+### Step 5: Data Storage
+- **PostgreSQL**: For structured financial data storage
+- Alternatives: MongoDB, Google Firestore
+
+### Step 6: User Dashboard & Reporting
+- **Streamlit**: For creating an interactive user dashboard
+- Alternatives: Retool, Dash
+
+### Step 7: Data Export
+- **Pandas + ReportLab**: For CSV and PDF exports
+- Alternative: WeasyPrint
+
+## 4. Installation
 
 ### Prerequisites
 
 - Python 3.8+
 - pip package manager
 
-### Dependencies
-
-Install system dependencies for unstructured.io:
+### System Dependencies
 
 ```bash
 # For Debian/Ubuntu
-sudo apt-get install libmagic-dev poppler-utils tesseract-ocr libreoffice pandoc
+sudo apt-get install libmagic-dev poppler-utils tesseract-ocr libreoffice pandoc postgresql
 
 # For macOS
-brew install libmagic poppler tesseract libreoffice pandoc
+brew install libmagic poppler tesseract libreoffice pandoc postgresql
 ```
 
 ### Python Installation
@@ -58,51 +78,63 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Usage
+## 5. Usage
 
 ```python
-from finanalysis import DocumentProcessor
+from nkaccountant import AccountingSystem
+
+# Initialize the system
+system = AccountingSystem()
 
 # Process a financial document
-processor = DocumentProcessor()
-results = processor.process("path/to/financial_document.pdf")
+result = system.process_document("path/to/invoice.pdf")
 
-# Extract financial metrics
-metrics = results.extract_metrics()
-print(metrics)
+# Review extracted data
+print(result.extracted_data)
 
-# Generate a summary
-summary = results.generate_summary()
-print(summary)
+# Generate accounting entries
+entries = result.generate_accounting_entries()
+print(entries)
+
+# Export as CSV
+result.export_to_csv("accounting_data.csv")
+
+# Generate a financial report
+report = system.generate_report(start_date="2023-01-01", end_date="2023-12-31")
+report.save_as_pdf("financial_report_2023.pdf")
 ```
 
-## Project Structure
+## 6. Project Structure
 
 ```
-FinAnalysis/
-├── finanalysis/           # Main package
+NKAccountant/
+├── nkaccountant/           # Main package
 │   ├── __init__.py
-│   ├── processors/        # Document processing modules
-│   ├── extractors/        # Financial data extraction
-│   ├── analyzers/         # Financial analysis tools
-│   └── visualizers/       # Data visualization tools
-├── examples/              # Example usage scripts
-├── tests/                 # Unit and integration tests
-├── data/                  # Sample data files
-├── notebooks/             # Jupyter notebooks for exploration
-├── requirements.txt       # Project dependencies
-└── README.md              # Project documentation
+│   ├── ingestion/          # Data extraction modules
+│   ├── processing/         # NLP and accounting rule processing
+│   ├── integration/        # Accounting API integrations
+│   ├── anomaly/            # Anomaly detection and auditing
+│   ├── storage/            # Database storage modules
+│   ├── dashboard/          # Streamlit dashboard
+│   └── export/             # Data export utilities
+├── examples/               # Example usage scripts
+├── tests/                  # Unit and integration tests
+├── data/                   # Sample data files
+├── notebooks/              # Jupyter notebooks for exploration
+├── requirements.txt        # Project dependencies
+└── README.md               # Project documentation
 ```
 
-## Contributing
+## 7. Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+## 8. License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgments
+## 9. Acknowledgments
 
-- [unstructured.io](https://unstructured.io) - For providing the core document processing capabilities
-- The open-source community for various financial analysis tools and libraries
+- [unstructured.io](https://unstructured.io) - For providing document processing capabilities
+- [LangChain](https://langchain.com) - For NLP processing framework
+- Open-source community for various accounting and financial analysis tools
